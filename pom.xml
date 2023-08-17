@@ -9,7 +9,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
-        <exec.mainClass>com.mycompany.robo.App</exec.mainClass>
+        <exec.mainClass>simulador.main.App</exec.mainClass>
     </properties>
     <name>Robot</name>
 </project>
