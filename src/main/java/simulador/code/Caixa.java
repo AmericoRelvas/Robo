@@ -4,25 +4,19 @@ package simulador.code;
  *
  * @author americo
  */
-public class Caixa {
-    String nomeItem;
-    int qtdItem;
-    int posX;
-    int posY;
-    float peso;
-    final float comprimento;
-    final float largura;
-    final float altura;
-    public Caixa(String nomeItem, int qtdItem, int posX, int posY,
-        float peso, float comprimento, float largura, 
-        float altura) {
+public class Caixa extends CaixaIdeia {
+    public String nomeItem;
+    public int qtdItem;
+    public Caixa(String nomeItem, int qtdItem, int posX, 
+                 int posY, float peso, float comprimento, 
+                 float largura, float altura) {
+        super(posX, posY, peso, comprimento, largura, altura);
         this.nomeItem = nomeItem;
         this.qtdItem = qtdItem;
-        this.posX = posX;
-        this.posY = posY;
-        this.peso = peso;
-        this.comprimento = comprimento;
-        this.largura = largura;
-        this.altura = altura;
+    }
+    @Override
+    public String toString() {
+        return "Caixa{" + "nomeItem=" + nomeItem + 
+               ", qtdItem=" + qtdItem + '}';
     }
 }
