@@ -1,33 +1,38 @@
 package simulador.main;
 
 import simulador.code.Robo;
+import java.util.Scanner; 
 
 /**
  *
- * @author ameri
+ * @author americo relvas
  */
+//Classe App contendo o main para iniciar a aplicação
 public class App {
     public static void main(String[] args) {
+//Criação do objeto robo
         Robo robo = new Robo("RTM", 3.5f);
-        for (int d = 0; d < 4; d++) {
-            for (int j = 1; j <= 10; j++) {
-                robo.printPos();
-                switch (d) {
-                    case 0: //move ao longo do eixo x para frente
-                        robo.move(50 + j * 4, 50);
-                        break;
-                    case 1: //move ao longo do eixo y para cima
-                        robo.move(90, 50 + j * 4);
-                        break;
-                    case 2: //move ao longo do eixo x para trás
-                        robo.move(90 - j * 4, 90);
-                        break;
-                    case 3: //move ao longo do eixo y para baixo
-                        robo.move(50, 90 - j * 4);
-                        break;
+//Fazendo a leitura das posições por meio do teclado 
+//Caso a tecla zero (0) seja pressionada, então, será encerrada a aplicação
+//Mas caso alguma outra tecla seja pressionada, uma exceção será lançada e uma nova tecla será requisitada
+        String tecla = "";
+        Scanner scan = new Scanner(System.in);
+        boolean ok = false;
+        do {
+            try {
+                tecla = scan.next();
+                robo.setOrientacao(tecla.charAt(0));
+                robo.printPos();                
+            } catch (IllegalArgumentException ex){
+                if (tecla.charAt(0) == '0') {
+                    ok = true;
+                } else {
+                    System.out.println("Valor errado");
+                    scan.nextLine();
+                    ok = false;
                 }
             }
-        }
+        } while(!ok);
         robo.printPos();
     }
 }
