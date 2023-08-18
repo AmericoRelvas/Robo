@@ -14,7 +14,7 @@ public class App {
         Robo robo = new Robo("RTM", 3.5f);
 //Fazendo a leitura das posições por meio do teclado 
 //Caso a tecla zero (0) seja pressionada, então, será encerrada a aplicação
-//Mas caso alguma outra tecla seja pressionada, uma exceção será lançada e uma nova tecla será requisitada
+//Se alguma outra tecla seja pressionada, uma exceção será lançada e uma nova tecla será requisitada
         String tecla = "";
         Scanner scan = new Scanner(System.in);
         boolean ok = false;

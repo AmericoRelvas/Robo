@@ -4,7 +4,8 @@ package simulador.code;
  *
  * @author ameri
  */
-public class CaixaIdeia {
+//classe abstrata CaixaIdeia para modelar a ideia de caixa
+public abstract class CaixaIdeia {
     protected int posX;
     protected int posY;
     protected float peso;
