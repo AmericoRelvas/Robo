@@ -4,7 +4,8 @@ package simulador.code;
  *
  * @author americo relvas
  */
-public class Robo {
+//Classe Robo que herda RoboIdeia
+public class Robo extends RoboIdeia{
     private float posicaoX;
     private float posicaoY;
     private int orientacao;
@@ -32,9 +33,14 @@ public class Robo {
     public void move(float pos){
         this.posicaoY = pos;
     }
-    public void move(float posX, float posY){
-        this.posicaoX = posX;
-        this.posicaoY = posY;
+    @Override
+    public void move(float posX, float posY) {
+        if (Float.isNaN(posX) || Float.isNaN(posY) ||
+            Float.isInfinite(posX) || Float.isInfinite(posY)) {
+            throw new IllegalArgumentException("Args não válidos");
+        }
+        super.posicaoX = posX;
+        super.posicaoY = posY;
     }
     public float getPosicaoX() {
         return posicaoX;
@@ -59,19 +65,38 @@ public class Robo {
             return false;
         }
     }
-    public void setOrientacao(char tecla){
+    public void setOrientacao(char tecla) {
         if (tecla == 'w') {
-            this.orientacao = FRENTE;
-        }else if (tecla == 's') {
-            this.orientacao = ATRAS;
-        }else if (tecla == 'a') {
-            this.orientacao = ESQUERDA;
-        }else if (tecla == 'd') {
-            this.orientacao = DIREITA;
+            super.orientacao = FRENTE;
+            moveY(5);
+        } else if (tecla == 's') {
+            super.orientacao = ATRAS;
+            moveY(-5);
+        } else if (tecla == 'a') {
+            super.orientacao = ESQUERDA;
+            moveX(-5);
+        } else if (tecla == 'd') {
+            super.orientacao = DIREITA;
+            moveX(5);
+        } else {
+            throw new IllegalArgumentException("Arg não válido");
         }
     }
     public void printPos() {
         System.out.println("Posição do Robô: (" + posicaoX + ", " + posicaoY + ")");
     }
-    
+   @Override
+    public void moveX(float dist) {
+        if (Float.isNaN(dist) || Float.isInfinite(dist)) {
+            throw new IllegalArgumentException("Arg não válido");
+        }
+        super.posicaoX += dist;
+    }
+    @Override
+    public void moveY(float dist) {
+        if (Float.isNaN(dist) || Float.isInfinite(dist)) {
+            throw new IllegalArgumentException("Arg não válido");
+        }
+        super.posicaoY += dist;
+    }
 }
