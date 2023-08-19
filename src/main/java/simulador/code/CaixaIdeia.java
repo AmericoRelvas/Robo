@@ -4,7 +4,7 @@ package simulador.code;
  * Classe abstrata para modelar a ideia de uma caixa.
  * Esta classe define atributos e métodos básicos para manipulação de caixas.
  *
- * @author ameri
+ * @author Americo Relvas
  */
 public abstract class CaixaIdeia {
     protected int posX; // Posição X da caixa.

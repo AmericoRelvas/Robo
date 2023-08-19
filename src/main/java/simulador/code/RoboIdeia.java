@@ -3,7 +3,6 @@ package simulador.code;
 /**
  * Classe abstrata para modelar a ideia de um robô.
  * Essa classe define atributos e métodos básicos para manipulação de robôs.
- *
  * @since 1.0
  * @version 1.0
  * @author Americo Relvas
@@ -23,7 +22,7 @@ public abstract class RoboIdeia {
      * Orientação atual do robô.
      * 0 representa Norte, 90 representa Leste, 180 representa Sul e 270 representa Oeste.
      */
-    protected int orientacao;
+    protected Orientacao orientacao;
 
     /**
      * Nome do robô.

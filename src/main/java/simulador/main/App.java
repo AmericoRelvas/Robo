@@ -11,7 +11,7 @@ import java.util.Scanner;
  * Para encerrar a interação, o usuário deve digitar '0'.
  * Se um valor inválido for inserido, uma mensagem de erro será exibida.
  *
- * @author americo relvas
+ * @author Americo Relvas
  */
 public class App {
     public static void main(String[] args) {
