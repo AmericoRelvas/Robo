@@ -7,179 +7,192 @@ package simulador.code;
  * @author Americo Relvas
  */
 public class Robo extends RoboIdeia {
-    private float posicaoX; // Posição X atual do robô.
-    private float posicaoY; // Posição Y atual do robô.
-    private int orientacao; // Orientação atual do robô (FRENTE, ATRAS, ESQUERDA, DIREITA).
-    private final String nome; // Nome do robô.
-    private final float peso; // Peso do robô em quilogramas.
-    private final float velocidadeMax = 5; // Velocidade máxima do robô.
-    private final float pesoCargaMax = 20; // Peso máximo da carga que o robô pode transportar.
-    private final String tipoTracao = "esteira"; // Tipo de tração do robô.
-    public static final int FRENTE = 0;
-    public static final int ATRAS = 1;
-    public static final int ESQUERDA = 2;
-    public static final int DIREITA = 3;
+
+    private final float velocidadeMax = 5;
+    private final float pesoCargaMax = 20;
+    private final String tipoTracao = "esteira";
 
     /**
-     * Construtor para criar um novo robô com nome e peso.
-     *
-     * @param nome O nome do robô.
-     * @param peso O peso do robô em quilogramas.
+     * Construtor padrão da aplicação.
+     */
+    public Robo() {
+        super.nome = "Rr.Robotnic";
+        super.peso = 70;
+        super.posicaoX = 50;
+        super.posicaoY = 50;
+    }
+
+    /**
+     * Construtor da classe robô
+     * @param nome nome do robô.
+     */
+    public Robo(String nome) {
+        super.nome = nome;
+        super.peso = 70;
+        super.posicaoX = 50;
+        super.posicaoY = 50;
+    }
+
+    /**
+     * Construtor da classe robô
+     * @param nome nome do robô.
+     * @param peso valor do peso do robô.
      */
     public Robo(String nome, float peso) {
-        this.nome = nome;
-        this.peso = peso;
-        this.posicaoX = 50;
-        this.posicaoY = 50;
+        super.nome = nome;
+        super.peso = peso;
+        super.posicaoX = 50;
+        super.posicaoY = 50;
     }
+
     /**
-     * Construtor para criar um novo robô com nome, peso e posição inicial.
-     *
-     * @param nome O nome do robô.
-     * @param peso O peso do robô em quilogramas.
-     * @param posX A posição inicial do robô no eixo X.
-     * @param posY A posição inicial do robô no eixo Y.
+     * Construtor da classe robô
+     * @param nome nome do robô.
+     * @param peso valor do peso do robô.
+     * @param posX valor da posição x inicial do robô.
+     * @param posY valor da posição y inicial do robô.
      */
     public Robo(String nome, float peso, float posX, float posY) {
-        this.nome = nome;
-        this.peso = peso;
-        this.posicaoX = posX;
-        this.posicaoY = posY;
+        super.nome = nome;
+        super.peso = peso;
+        super.posicaoX = posX;
+        super.posicaoY = posY;
     }
+
     /**
-     * Move o robô para uma nova posição no eixo Y.
-     *
-     * @param pos A nova posição no eixo Y.
+     * Move o robô para a posição x e y.
+     * @param posX posição x em que o robô será movido.
+     * @param posY posição y em que o robô será movido.
+     * @throws IllegalArgumentException exceção lançada quando o argumento for NaN ou infinita
      */
-    public void move(float pos) {
-        this.posicaoY = pos;
-    }
-    /**
-    * Move o robô para uma nova posição especificada no plano.
-    *
-    * @param posX A nova coordenada X da posição do robô.
-    * @param posY A nova coordenada Y da posição do robô.
-    * @throws IllegalArgumentException Se posX ou posY forem NaN (not-a-number) ou infinitos.
-    */
     @Override
     public void move(float posX, float posY) {
-        if (Float.isNaN(posX) || Float.isNaN(posY) ||
-            Float.isInfinite(posX) || Float.isInfinite(posY)) {
-            throw new IllegalArgumentException("Args não válidos");
+        if (Float.isNaN(posX) || Float.isNaN(posY)
+                || Float.isInfinite(posX) || Float.isInfinite(posY)) {
+            throw new IllegalArgumentException("Argumentos não válidos");
         }
         super.posicaoX = posX;
         super.posicaoY = posY;
     }
 
     /**
-    * Obtém a coordenada X atual da posição do robô.
-    *
-    * @return A coordenada X atual da posição do robô.
-    */
-    public float getPosicaoX() {
-        return posicaoX;
-    }
-
-    /**
-    * Obtém a coordenada Y atual da posição do robô.
-    *
-    * @return A coordenada Y atual da posição do robô.
-    */
-    public float getPosicaoY() {
-        return posicaoY;
-    }
-
-    /**
-    * Obtém a orientação atual do robô.
-    *
-    * @return A orientação atual do robô.
-    */
-    public int getOrientacao() {
-        return orientacao;
-    }
-
-    /**
-    * Retorna uma representação em forma de string do estado atual do robô.
-    *
-    * @return Uma string contendo as informações de posição e orientação do robô.
-    */
-    @Override
-    public String toString() {
-        return "Robo{" + "posicaoX=" + posicaoX + ", posicaoY="
-        + posicaoY + ", orientacao=" + orientacao + '}';
-    }
-
-    /**
-    * Verifica se este robô é igual a outro objeto.
-    *
-    * @param obj O objeto a ser comparado.
-    * @return true se o objeto é um robô e possui o mesmo nome, false caso contrário.
-    */
-    @Override
-    public boolean equals(Object obj) {
-        if (obj instanceof Robo){
-            Robo robo = (Robo)obj;
-            return this.nome.equals(robo.nome);
-        } else {
-            return false;
-        }
-    }
-    /**
-    * Define a orientação do robô com base na tecla pressionada e move o robô na direção correspondente.
-    *
-    * @param tecla A tecla pressionada ('w', 's', 'a' ou 'd').
-    * @throws IllegalArgumentException Se a tecla não for válida.
-    */
-    public void setOrientacao(char tecla) {
-        if (tecla == 'w') {
-            super.orientacao = FRENTE;
-            moveY(5); // Move o robô para a frente no eixo Y.
-        } else if (tecla == 's') {
-            super.orientacao = ATRAS;
-            moveY(-5); // Move o robô para trás no eixo Y.
-        } else if (tecla == 'a') {
-            super.orientacao = ESQUERDA;
-            moveX(-5); // Move o robô para a esquerda no eixo X.
-        } else if (tecla == 'd') {
-            super.orientacao = DIREITA;
-            moveX(5); // Move o robô para a direita no eixo X.
-        } else {
-            throw new IllegalArgumentException("Arg não válido");
-        }
-    }
-
-    /**
-    * Imprime a posição atual do robô no formato "(posicaoX, posicaoY)".
-    */
-    public void printPos() {
-        System.out.println("Posição do Robô: (" + posicaoX + ", " + posicaoY + ")");
-    }
-
-    /**
-    * Move o robô ao longo do eixo X por uma determinada distância.
-    *
-    * @param dist A distância a ser percorrida ao longo do eixo X.
-    * @throws IllegalArgumentException Se dist for NaN (not-a-number) ou infinito.
-    */
+     * Move o robô ao longo do eixo x.
+     * @param dist distância a partir da posição atual no eixo x que será movido o robô. 
+     * @throws IllegalArgumentException exceção lançada quando o argumento for NaN ou infinito
+     */
     @Override
     public void moveX(float dist) {
         if (Float.isNaN(dist) || Float.isInfinite(dist)) {
-            throw new IllegalArgumentException("Arg não válido");
+            throw new IllegalArgumentException("Argumento não válido");
         }
-        super.posicaoX += dist; // Atualiza a posição X do robô.
+        super.posicaoX += dist;
     }
 
     /**
-    * Move o robô ao longo do eixo Y por uma determinada distância.
-    *
-    * @param dist A distância a ser percorrida ao longo do eixo Y.
-    * @throws IllegalArgumentException Se dist for NaN (not-a-number) ou infinito.
-    */
+     * Move o robô ao longo do eixo y.
+     * @param dist distância a partir da posição atual no eixo y que será movido o robô.
+     * @throws IllegalArgumentException exceção lançada quando o argumento for NaN ou infinito
+     */
     @Override
     public void moveY(float dist) {
         if (Float.isNaN(dist) || Float.isInfinite(dist)) {
-            throw new IllegalArgumentException("Arg não válido");
+            throw new IllegalArgumentException("Argumento não válido");
         }
-        super.posicaoY += dist; // Atualiza a posição Y do robô.
+        super.posicaoY += dist;
+    }
+    
+    /**
+     * Método que define a orientação do robô e também efetua o movimento na 
+     * direção da orientação que a tecla foi precionada.
+     * @param tecla char representando a tecla que foi precionada.
+     */
+    public void setOrientacao(char tecla) {
+        if (tecla == 'w') {
+            super.orientacao = Orientacao.FRENTE;
+            moveY(5);
+        } else if (tecla == 's') {
+            super.orientacao = Orientacao.ATRAS;
+            moveY(-5);
+        } else if (tecla == 'a') {
+            super.orientacao = Orientacao.ESQUERDA;
+            moveX(-5);
+        } else if (tecla == 'd') {
+            super.orientacao = Orientacao.DIREITA;
+            moveX(5);
+        } else {
+            throw new IllegalArgumentException("Argumento não válido");
+        }
+    }
+    
+    public void movimentosAgendados(String... moves){
+        for (String tecla : moves){
+            if ((!tecla.equals("--move") && !tecla.equals("-m"))){
+                System.out.println("Tecla: " + tecla);
+                System.out.println("Descrição: " + descricaoDoMovimento(tecla.charAt(0)));
+                setOrientacao(tecla.charAt(0));
+                printPos();
+            }
+        }
+    }
+    
+    public String descricaoDoMovimento(char tecla){
+        if (tecla == 'w'){
+            return "Movendo para frente";
+        } else if (tecla == 'a'){
+            return "Movendo para esquerda";
+        } else if (tecla == 's'){
+            return "Movendo para baixo";
+        } else if (tecla == 'd'){
+            return "Movendo para direita";
+        } else {
+            return "";
+        }
+    }
+    
+    /**
+     * Método que imprime todos os estados internos do objeto. 
+     */
+    public void printStatus() {
+        System.out.println("-----------Info R-ATM----------");
+        System.out.println("Nome do Robô: " + nome);
+        System.out.println("Peso do Robô: " + peso);
+        System.out.println("Velocidade Max: " + velocidadeMax);
+        System.out.println("Carga Max do Robô: " + pesoCargaMax);
+        System.out.println("Tipo Tração do Robô: " + tipoTracao);
+        System.out.println("Posição X do Robô: " + posicaoX);
+        System.out.println("Posição Y do Robô: " + posicaoY);
+        System.out.println("-------------------------------");
+    }
+
+    /**
+     * Método que imprime a posição corrente do objeto.
+     */
+    public void printPos() {
+        System.out.println("(x, y) = (" + posicaoX + ", " + posicaoY + ")");
+    }
+
+    /**
+     * Método que imprime o estado do objeto.
+     * @return retorna uma string que representa o estado do objeto.
+     */
+    @Override
+    public String toString() {
+        return "Robo{" + "posicaoX=" + posicaoX + ", posicaoY=" + posicaoY
+                + ", orientacao=" + orientacao + '}';
+    }
+
+    /**
+     * Método que compara dois objetos.
+     * @param obj objeto a ser comparado.
+     * @return retorna true se os dois objetos são iguais e retorna false se forem diferentes.
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Robo) {
+            Robo robo = (Robo) obj;
+            return super.nome.equals(robo.nome);
+        } else {
+            return false;
+        }
     }
 }
