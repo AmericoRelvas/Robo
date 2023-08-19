@@ -15,9 +15,33 @@ import java.util.Scanner;
  */
 public class App {
     public static void main(String[] args) {
-
-        // Cria uma instância de um robô com nome "RTM" e peso 3.5f.
-        Robo robo = new Robo("RTM", 3.5f);
+        if (args.length != 0){
+            args[0] = args[0].toLowerCase();
+            if (args[0].equals("--author")) {
+                System.out.println("Autor: Américo Relvas");
+            } else if (args[0].equals("--version")) {
+                System.out.println("Versão: 1.0.0");
+            } else if (args[0].equals("--help")) {
+                System.out.println("Exec. Movimentos Agendados:");
+                System.out.println("\t--move w a w w s d d a");
+            } else if (args[0].equals("--commands")) {
+                System.out.println("Comandos suportados:");
+                System.out.println("\tw: move para cima");
+                System.out.println("\ta: move para esquerda");
+                System.out.println("\ts: move para baixo");
+                System.out.println("\td: move para direita");
+                System.out.println("\t0: sair da aplicação");
+            } else if (args[0].equals("--move")) {
+                Robo robo = new Robo();
+                System.out.println("Movimentos agendados: ");
+                robo.movimentosAgendados(args);
+            } else {
+                System.out.println("Argumento não válido");
+            }
+            System.exit(0);
+        }
+        // Cria uma instância de um robô 
+        Robo robo = new Robo();
 
         String tecla = ""; // Armazena a tecla inserida pelo usuário.
         Scanner scan = new Scanner(System.in); // Objeto Scanner para ler a entrada do usuário.
